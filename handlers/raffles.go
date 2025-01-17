@@ -7,7 +7,7 @@ import (
 )
 
 func Start() {
-
+	models.ActiveRaffle = *models.Start()
 }
 
 func AddNewBet(w http.ResponseWriter, r *http.Request) {
@@ -49,4 +49,10 @@ func BetsByCPF(w http.ResponseWriter, r *http.Request) {
 	json.NewDecoder(r.Body).Decode(&cpfToFind)
 	bets := models.ActiveRaffle.FindBetByCPF(cpfToFind)
 	json.NewEncoder(w).Encode(bets)
+}
+
+func RunRaffle(w http.ResponseWriter, r *http.Request) {
+	sortedNumbers, winningBets := models.ActiveRaffle.Run()
+	result := models.CalculateResult(sortedNumbers, winningBets)
+	json.NewEncoder(w).Encode(result)
 }

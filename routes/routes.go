@@ -19,5 +19,6 @@ func HandleRequest() {
 	r.HandleFunc("/api/bets", handlers.AllBets).Methods("Get")
 	r.HandleFunc("/api/betsByName", handlers.BetsByName).Methods("Get")
 	r.HandleFunc("/api/betsByCPF", handlers.BetsByCPF).Methods("Get")
+	r.HandleFunc("/api/run", handlers.RunRaffle).Methods("Get")
 	log.Fatal(http.ListenAndServe(":"+config.GetPort(), r))
 }

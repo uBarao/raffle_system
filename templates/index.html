@@ -59,7 +59,8 @@
                 jsonPayload.Numbers.push(Number(number));
             });
 
-            const url = 'http://localhost:8000/addNewBet' + (isRandomChecked ? '/random' : '')
+            const currentUrl = window.location.origin + window.location.pathname;
+            const url = currentUrl + (isRandomChecked ? '/random' : '')
 
             fetch(url, {
                 method: 'POST',

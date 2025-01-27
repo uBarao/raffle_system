@@ -57,6 +57,9 @@ func BetsByCPF(w http.ResponseWriter, r *http.Request) {
 }
 
 func RunRaffle(w http.ResponseWriter, r *http.Request) {
+	if len(models.ActiveRaffle.Bets) <= 0 {
+		http.Error(w, "No bets counted.", http.StatusBadRequest)
+	}
 	w.Header().Set("Content-type", "application/json")
 	sortedNumbers, winningBets := models.ActiveRaffle.Run()
 	result := models.CalculateResult(sortedNumbers, winningBets, models.ActiveRaffle.Bets)

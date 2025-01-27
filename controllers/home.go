@@ -37,6 +37,9 @@ func FeedbackRandom(w http.ResponseWriter, r *http.Request) {
 }
 
 func RunRaffleResult(w http.ResponseWriter, r *http.Request) {
+	if len(models.ActiveRaffle.Bets) <= 0 {
+		http.Error(w, "No bets counted.", http.StatusBadRequest)
+	}
 	sortedNumbers, winningBets := models.ActiveRaffle.Run()
 	result := models.CalculateResult(sortedNumbers, winningBets, models.ActiveRaffle.Bets)
 	temp.ExecuteTemplate(w, "Result", result)

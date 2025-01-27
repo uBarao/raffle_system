@@ -6,11 +6,6 @@ import (
 )
 
 func main() {
-	raffle := models.Start()
-
-	raffle.AddBet("Robson", "12345678910", models.RandomBetNumbers(5))
-	raffle.AddBet("Robson", "12345678910", models.RandomBetNumbers(5))
-	raffle.AddBet("Robson", "12345678910", models.RandomBetNumbers(5))
-
+	models.Start()
 	routes.HandleRequest()
 }

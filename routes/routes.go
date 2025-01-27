@@ -14,7 +14,8 @@ func HandleRequest() {
 
 	// html functions
 	r.HandleFunc("/", handlers.Index)
-	r.HandleFunc("/feedback", handlers.Feedback)
+	r.HandleFunc("/addNewBet", handlers.Feedback)
+	r.HandleFunc("/addNewBet/random", handlers.FeedbackRandom)
 
 	// api functions
 	r.HandleFunc("/api/addNewBet", handlers.AddNewBet).Methods("Post")

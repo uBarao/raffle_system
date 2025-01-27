@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/json"
 	"github/raffle_system/models"
 	"html/template"
 	"net/http"
@@ -9,11 +10,28 @@ import (
 var temp = template.Must(template.ParseGlob("templates/*.html"))
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	//w.Header().Set("Content-type", "text/html; charset=utf-8")
 	temp.ExecuteTemplate(w, "Index", nil)
 }
 
 func Feedback(w http.ResponseWriter, r *http.Request) {
-	bet := models.Bet{Id: 1, Name: "Sim", CPF: "talvez", Numbers: []int8{1, 4, 6, 43, 43}}
-	temp.ExecuteTemplate(w, "Feedback", bet)
+	var newBet models.Bet
+	json.NewDecoder(r.Body).Decode(&newBet)
+	newBet, err := models.ActiveRaffle.AddBet(newBet.Name, newBet.CPF, newBet.Numbers)
+	if err != nil {
+		http.Error(w, "Error in bet", http.StatusBadRequest)
+	} else {
+		temp.ExecuteTemplate(w, "Feedback", newBet)
+	}
+}
+
+func FeedbackRandom(w http.ResponseWriter, r *http.Request) {
+	var newBet models.Bet
+	json.NewDecoder(r.Body).Decode(&newBet)
+	newBet.Numbers = models.RandomBetNumbers(5)
+	newBet, err := models.ActiveRaffle.AddBet(newBet.Name, newBet.CPF, newBet.Numbers)
+	if err != nil {
+		http.Error(w, "Error in bet", http.StatusBadRequest)
+	} else {
+		temp.ExecuteTemplate(w, "Feedback", newBet)
+	}
 }

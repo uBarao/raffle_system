@@ -14,7 +14,7 @@ func AddNewBet(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-type", "application/json")
 	var newBet models.Bet
 	json.NewDecoder(r.Body).Decode(&newBet)
-	err := models.ActiveRaffle.AddBet(newBet.Name, newBet.CPF, newBet.Numbers)
+	newBet, err := models.ActiveRaffle.AddBet(newBet.Name, newBet.CPF, newBet.Numbers)
 	if err != nil {
 		http.Error(w, "Error in bet", http.StatusBadRequest)
 	} else {
@@ -27,7 +27,7 @@ func AddNewRandomBet(w http.ResponseWriter, r *http.Request) {
 	var newBet models.Bet
 	json.NewDecoder(r.Body).Decode(&newBet)
 	newBet.Numbers = models.RandomBetNumbers(5)
-	err := models.ActiveRaffle.AddBet(newBet.Name, newBet.CPF, newBet.Numbers)
+	newBet, err := models.ActiveRaffle.AddBet(newBet.Name, newBet.CPF, newBet.Numbers)
 	if err != nil {
 		http.Error(w, "Error in bet", http.StatusBadRequest)
 	} else {

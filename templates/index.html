@@ -5,32 +5,26 @@
 <body>
     <div class="container">
         <h1>Faça uma RoBet!</h1>
-        <form action="" method="post">
+        <form id="dynamicForm" method="post">
             <div class="form-group">
-                <input type="text" name="name" placeholder="Seu nome" required>
+                <input type="text" name="Name" placeholder="Seu nome" required>
             </div>
             <div class="form-group">
-                <input type="text" name="cpf" placeholder="CPF" required>
-            </div>
-            <div class="form-group">
-                <input type="email" name="email" placeholder="Email" required>
-            </div>
-            <div class="form-group">
-                <input type="tel" name="phone" placeholder="Telefone" required>
+                <input type="text" name="CPF" placeholder="CPF" required>
             </div>
 
             <div class="numbers">
                 <label class="numbers-title">Escolha 5 números:</label>
                 <label class="random-marker">Gerar aleatório
-                    <input type="checkbox" id="random" onchange="toggleNumberButtons()">
+                    <input type="checkbox" id="random-check" name="random-check" onchange="toggleNumberButtons()">
                     <span class="checkmark"></span>
                 </label>
                 <div class="number-buttons">
-                    <input type="number" name="number" min="1" max="50">
-                    <input type="number" name="number" min="1" max="50">
-                    <input type="number" name="number" min="1" max="50">
-                    <input type="number" name="number" min="1" max="50">
-                    <input type="number" name="number" min="1" max="50">
+                    <input type="number" name="Numbers[]" min="1" max="50" id="number1">
+                    <input type="number" name="Numbers[]" min="1" max="50" id="number2">
+                    <input type="number" name="Numbers[]" min="1" max="50" id="number3">
+                    <input type="number" name="Numbers[]" min="1" max="50" id="number4">
+                    <input type="number" name="Numbers[]" min="1" max="50" id="number5">
                 </div>
             </div>
 
@@ -41,18 +35,54 @@
     </div>
 
     <script>
+        let isRandomChecked = false;
+
         function toggleNumberButtons() {
-            // Obtém o estado da checkbox
-            const isRandomChecked = document.getElementById("random").checked;
-
-            // Obtém todos os botões de número
+            isRandomChecked = document.getElementById("random-check").checked;
             const numberButtons = document.querySelectorAll(".number-buttons input[type='number']");
-
-            // Ativa ou desativa os botões de número com base no estado da checkbox
             numberButtons.forEach(button => {
                 button.disabled = isRandomChecked;
             });
         }
+
+        document.getElementById('dynamicForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+
+            const jsonPayload = {
+                Name: formData.get('Name'),
+                CPF: formData.get('CPF'),
+                Numbers: []
+            };
+
+            formData.getAll('Numbers[]').forEach(number => {
+                jsonPayload.Numbers.push(Number(number));
+            });
+
+            const url = 'http://localhost:8000/addNewBet' + (isRandomChecked ? '/random' : '')
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'text/html'
+                },
+                body: JSON.stringify(jsonPayload)
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.text();
+                }
+                throw new Error('Erro ao enviar os dados.');
+            })
+            .then(html => {
+                document.body.innerHTML = html;
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Falha ao enviar o formulário.');
+            });
+        });
     </script>
 </body>
 </html>

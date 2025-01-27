@@ -17,9 +17,9 @@ func Start() *Raffle {
 	return &ActiveRaffle
 }
 
-func (r *Raffle) AddBet(name string, cpf string, numbers []int8) error {
+func (r *Raffle) AddBet(name string, cpf string, numbers []int8) (Bet, error) {
 	if len(numbers) != 5 {
-		return errors.New("not five numbers bet")
+		return Bet{}, errors.New("not five numbers bet")
 	}
 	bet := Bet{
 		Id:      r.nextRegister,
@@ -29,7 +29,7 @@ func (r *Raffle) AddBet(name string, cpf string, numbers []int8) error {
 	}
 	r.nextRegister++
 	r.Bets = append(r.Bets, bet)
-	return nil
+	return bet, nil
 }
 
 func (r *Raffle) FindBetByName(name string) []Bet {

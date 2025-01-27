@@ -1,0 +1,57 @@
+{{define "Result"}}
+
+{{template "_head"}}
+
+<body>
+    <div class="result-container">
+        <h1 class="result-title">Resultados da RoBet!</h1>
+        <div class="drawn-numbers">
+            <h1>Números Sorteados:</h1>
+            <ul>
+                {{range .SortedNumbers}}
+                <li>{{printf "%02d" .}}</li>
+                {{end}}
+            </ul>
+        </div>
+
+        <div class="rounds-count">
+            <h1>Total de Rodadas:</h1>
+            <p>{{.TotalRounds}}</p>
+        </div>
+
+        <div class="winning-bets">
+            <h1>{{.TotalWinners}} Apostas Vencedoras!</h1>
+            <ul>
+                {{range .WinningBets}}
+                <li class="winning-bets__bet-card">
+                    <h2>{{.Name}}</h2>
+                    <ul>
+                        {{range .Numbers}}
+                        <li>{{printf "%02d" .}}</li>
+                        {{end}}
+                    </ul>
+                </li>
+                {{end}}
+            </ul>
+        </div>
+
+        <div class="bet-numbers">
+            <h1 class="bet-numbers__title">Apostas por Número</h1>
+            <ul>
+                <li>
+                    <h2>Número apostado:</h2>
+                    <h2>Quantidade de apostas:</h2>
+                </li>
+                {{range .BetsPerNumber}}
+                <li>
+                    <p>{{printf "%02d" .Number}}</p>
+                    <p>{{.TimesBetted}}</p>
+                </li>
+                {{end}}
+            </ul>
+        </div>
+</div>
+</body>
+</html>
+
+{{end}}

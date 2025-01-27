@@ -1,4 +1,4 @@
-package handlers
+package controllers
 
 import (
 	"encoding/json"
@@ -34,4 +34,10 @@ func FeedbackRandom(w http.ResponseWriter, r *http.Request) {
 	} else {
 		temp.ExecuteTemplate(w, "Feedback", newBet)
 	}
+}
+
+func RunRaffleResult(w http.ResponseWriter, r *http.Request) {
+	sortedNumbers, winningBets := models.ActiveRaffle.Run()
+	result := models.CalculateResult(sortedNumbers, winningBets, models.ActiveRaffle.Bets)
+	temp.ExecuteTemplate(w, "Result", result)
 }

@@ -1,4 +1,4 @@
-package handlers
+package controllers
 
 import (
 	"encoding/json"
@@ -59,6 +59,6 @@ func BetsByCPF(w http.ResponseWriter, r *http.Request) {
 func RunRaffle(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-type", "application/json")
 	sortedNumbers, winningBets := models.ActiveRaffle.Run()
-	result := models.CalculateResult(sortedNumbers, winningBets)
+	result := models.CalculateResult(sortedNumbers, winningBets, models.ActiveRaffle.Bets)
 	json.NewEncoder(w).Encode(result)
 }

@@ -8,7 +8,7 @@
         <h2>Seus números:</h2>
         <ul>
             {{range .Numbers}}
-            <li>{{.}}</li>
+            <li>{{printf "%02d" .}}</li>
             {{end}}
         </ul>
         <h2>Número da RoBet:</h2>
@@ -19,4 +19,5 @@
     </div>
 </body>
 </html>
+
 {{end}}

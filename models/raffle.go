@@ -21,6 +21,12 @@ func (r *Raffle) AddBet(name string, cpf string, numbers []int8) (Bet, error) {
 	if len(numbers) != 5 {
 		return Bet{}, errors.New("not five numbers bet")
 	}
+	if isRepeating(numbers) {
+		return Bet{}, errors.New("repeating bet numbers")
+	}
+	if isOutOfRange(numbers) {
+		return Bet{}, errors.New("out of range bet numbers")
+	}
 	bet := Bet{
 		Id:      r.nextRegister,
 		Name:    name,
@@ -81,6 +87,26 @@ func (r *Raffle) calculateWinners(drawnNumbers []int8) []Bet {
 		}
 	}
 	return winners
+}
+
+func isRepeating(numbers []int8) bool {
+	for i := range numbers {
+		for j := range numbers {
+			if i != j && numbers[i] == numbers[j] {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+func isOutOfRange(numbers []int8) bool {
+	for _, number := range numbers {
+		if number <= 0 || number > 50 {
+			return true
+		}
+	}
+	return false
 }
 
 func isWinner(bet Bet, numbers []int8) bool {

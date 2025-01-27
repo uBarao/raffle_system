@@ -1,14 +1,19 @@
 package handlers
 
 import (
-	"fmt"
-	_ "html/template"
+	"github/raffle_system/models"
+	"html/template"
 	"net/http"
 )
 
-//var temp = template.Must(template.ParseGlob("templates/*.html"))
+var temp = template.Must(template.ParseGlob("templates/*.html"))
 
-func Home(w http.ResponseWriter, r *http.Request) {
-	//temp.ExecuteTemplate(w, "Home", nil)
-	fmt.Fprint(w, "Home Page")
+func Index(w http.ResponseWriter, r *http.Request) {
+	//w.Header().Set("Content-type", "text/html; charset=utf-8")
+	temp.ExecuteTemplate(w, "Index", nil)
+}
+
+func Feedback(w http.ResponseWriter, r *http.Request) {
+	bet := models.Bet{Id: 1, Name: "Sim", CPF: "talvez", Numbers: []int8{1, 4, 6, 43, 43}}
+	temp.ExecuteTemplate(w, "Feedback", bet)
 }

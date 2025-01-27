@@ -11,6 +11,7 @@ func Start() {
 }
 
 func AddNewBet(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-type", "application/json")
 	var newBet models.Bet
 	json.NewDecoder(r.Body).Decode(&newBet)
 	err := models.ActiveRaffle.AddBet(newBet.Name, newBet.CPF, newBet.Numbers)
@@ -22,6 +23,7 @@ func AddNewBet(w http.ResponseWriter, r *http.Request) {
 }
 
 func AddNewRandomBet(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-type", "application/json")
 	var newBet models.Bet
 	json.NewDecoder(r.Body).Decode(&newBet)
 	newBet.Numbers = models.RandomBetNumbers(5)
@@ -34,10 +36,12 @@ func AddNewRandomBet(w http.ResponseWriter, r *http.Request) {
 }
 
 func AllBets(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-type", "application/json")
 	json.NewEncoder(w).Encode(models.ActiveRaffle.Bets)
 }
 
 func BetsByName(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-type", "application/json")
 	var nameToFind string
 	json.NewDecoder(r.Body).Decode(&nameToFind)
 	bets := models.ActiveRaffle.FindBetByName(nameToFind)
@@ -45,6 +49,7 @@ func BetsByName(w http.ResponseWriter, r *http.Request) {
 }
 
 func BetsByCPF(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-type", "application/json")
 	var cpfToFind string
 	json.NewDecoder(r.Body).Decode(&cpfToFind)
 	bets := models.ActiveRaffle.FindBetByCPF(cpfToFind)
@@ -52,6 +57,7 @@ func BetsByCPF(w http.ResponseWriter, r *http.Request) {
 }
 
 func RunRaffle(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-type", "application/json")
 	sortedNumbers, winningBets := models.ActiveRaffle.Run()
 	result := models.CalculateResult(sortedNumbers, winningBets)
 	json.NewEncoder(w).Encode(result)

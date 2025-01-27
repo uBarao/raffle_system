@@ -1,0 +1,206 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Fira Code", serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+}
+
+a {
+    text-decoration: none;
+}
+
+.header__search_bar {
+    float: right;
+    padding: 6px;
+    font-size: 17px;
+    border-radius: 20px;
+    border-color: black;
+    border-width: 1px;
+    text-align: center;
+}
+
+body {
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 500px;
+    background-color: #eaeaea;
+    border-radius: 16px;
+    padding: 25px 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid black;
+}
+
+.container h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.feedback-card {
+    text-align: center;
+}
+
+.feedback-card > * {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.feedback-card h1 {
+    margin-top: 50px;
+}
+
+.feedback-card ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.feedback-card p {
+    margin-bottom: 50px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"] {
+    width: 100%;
+    padding: 5px 20px;
+    border: 1px solid black;
+    border-radius: 30px;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.numbers {
+    margin: 15px 0;
+}
+
+.numbers-title {
+    font-size: 20px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.random-marker {
+    display: block;
+    position: relative;
+    font-size: 14px;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.numbers input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: white;
+    border: 2px solid black;
+}
+
+/* On mouse-over, add a grey background color */
+.random-marker:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .random-marker input:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .random-marker input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .random-marker .checkmark:after {
+    left: 4px;
+    top: 0px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+.number-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.number-buttons input[type="number"] {
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.submit-button {
+    display: flex;
+    justify-content:end;
+}
+
+.submit-button button {
+    background-color: #737373;
+    color: white;
+    border: 1px solid black;
+    border-radius: 30px;
+    padding: 5px 40px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.submit-button button:hover {
+    background-color: #444;
+}

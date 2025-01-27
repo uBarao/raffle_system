@@ -1,0 +1,22 @@
+{{define "Feedback"}}
+
+{{template "_head"}}
+
+<body>
+    <div class="container feedback-card">
+        <h1>RoBet feita!</h1>
+        <h2>Seus números:</h2>
+        <ul>
+            {{range .Numbers}}
+            <li>{{.}}</li>
+            {{end}}
+        </ul>
+        <h2>Número da RoBet:</h2>
+        <p>123456</p>
+        <div class="submit-button">
+            <button type="submit">Mais uma? &#10132;</button>
+        </div>
+    </div>
+</body>
+</html>
+{{end}}

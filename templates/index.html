@@ -59,8 +59,7 @@
                 jsonPayload.Numbers.push(Number(number));
             });
 
-            const currentUrl = window.location.origin + window.location.pathname;
-            const url = currentUrl + (isRandomChecked ? '/random' : '')
+            const url = '/addNewBet' + (isRandomChecked ? '/random' : '')
 
             fetch(url, {
                 method: 'POST',

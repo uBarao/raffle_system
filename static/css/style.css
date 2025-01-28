@@ -213,10 +213,11 @@ input::-webkit-inner-spin-button {
 
 .result-title {
     font-size: 48px;
+    text-align: center;
 }
 
 .result-container {
-    width: fit-content;
+    width: 80%;
     background-color: #eaeaea;
     border-radius: 16px;
     padding: 25px 30px;
@@ -242,7 +243,7 @@ input::-webkit-inner-spin-button {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    width: 30%;
+    width: 350px;
 }
 
 .drawn-numbers li {
@@ -342,4 +343,12 @@ input::-webkit-inner-spin-button {
 .bet-numbers h2, .bet-numbers p {
     font-size: 24px;
     width: 100%;
+    text-wrap: wrap;
+    align-self: center;
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 90%;
+    }
 }

@@ -48,6 +48,9 @@ func calculateBetsPerNumber(bets []Bet) []BettedNumber {
 	}
 
 	sort.SliceStable(keys, func(i, j int) bool {
+		if betCount[keys[i]] == betCount[keys[j]] {
+			return keys[i] < keys[j]
+		}
 		return betCount[keys[i]] > betCount[keys[j]]
 	})
 
